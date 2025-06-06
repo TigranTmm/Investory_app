@@ -6,4 +6,28 @@
     </style>
 
     <style name="Theme.Investory" parent="Base.Theme.Investory" />
+
+    <!-- Bottom navigation -->
+    <style name="BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemPaddingTop">16dp</item>
+        <item name="itemPaddingBottom">4dp</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="itemRippleColor">@null</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <!-- Labels -->
+    <style name="Labels" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/label_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">56dp</item>
+        <item name="android:paddingBottom">24dp</item>
+    </style>
+
+    <!-- Tabs -->
+    <style name="Tabs" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

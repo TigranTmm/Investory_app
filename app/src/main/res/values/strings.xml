@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Investory</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Labels -->
+    <string name="home_page">HOME</string>
+    <string name="crypto_page">CRYPTO</string>
+    <string name="stock_page">STOCK MARKET</string>
+    <string name="profile_page">PROFILE</string>
+
+    <!-- Tabs -->
+    <string name="crypto">Crypto</string>
+    <string name="stock">Stock Market</string>
+
 </resources>
