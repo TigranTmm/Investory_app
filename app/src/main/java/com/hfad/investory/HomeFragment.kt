@@ -2,14 +2,12 @@ package com.hfad.investory
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.fonts.Font
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -17,11 +15,10 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.hfad.investory.databinding.FragmentHomeBinding
+import com.hfad.investory.viewModels.HomeViewModel
 
 
 class HomeFragment : Fragment() {
@@ -38,13 +35,13 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // view binding
+        // View binding
         _binding = FragmentHomeBinding
             .inflate(inflater, container, false)
         val view = binding.root
 
         // View model
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel.setData()
         viewModel.setCenterText()
 

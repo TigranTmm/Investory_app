@@ -6,10 +6,9 @@
     android:background="@android:color/transparent"
     tools:context=".CryptoHomeFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recCryptoHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/crypto_page"
-        style="@style/Labels"/>
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

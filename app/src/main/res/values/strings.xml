@@ -12,4 +12,8 @@
     <string name="crypto">Crypto</string>
     <string name="stock">Stock Market</string>
 
+    <!-- Under constrain -->
+    <string name="change24h">Change, 24 h:</string>
+    <string name="price">Price:</string>
+
 </resources>

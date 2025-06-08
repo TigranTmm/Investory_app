@@ -9,6 +9,13 @@
     <color name="bottom_nav">#1C1A3A</color>
     <color name="b_n_item">#EAF1FF</color>
     <color name="label_color">#787099</color>
+    <color name="text_bg">#1B2143</color>
+
+
+    <color name="up">#00A849</color>
+    <color name="up_bg">#022934</color>
+    <color name="down">#F12E31</color>
+    <color name="down_bg">#311333</color>
 
     <!-- Pie colors -->
     <color name="legend_text">#828194</color>

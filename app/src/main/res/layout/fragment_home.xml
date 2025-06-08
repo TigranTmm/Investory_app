@@ -43,6 +43,29 @@
         android:layout_width="match_parent"
         android:layout_height="2dp" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:text="@string/change24h"
+            android:textSize="12sp"
+            android:textColor="@color/legend_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end|bottom"
+            android:text="@string/price"
+            android:textSize="12sp"
+            android:textColor="@color/legend_text" />
+    </FrameLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_2"
         android:layout_width="match_parent"
