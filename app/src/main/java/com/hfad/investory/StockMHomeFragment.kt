@@ -15,9 +15,9 @@ class StockMHomeFragment : Fragment() {
     private var _binding: FragmentStockMHomeBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel: StockMHomeViewModel
-    lateinit var resView: RecyclerView
-    lateinit var stockAdapter: StockMHomeAdapter
+    private lateinit var viewModel: StockMHomeViewModel
+    private lateinit var resView: RecyclerView
+    private lateinit var stockAdapter: StockMHomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

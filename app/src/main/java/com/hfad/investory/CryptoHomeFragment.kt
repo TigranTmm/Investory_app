@@ -15,9 +15,9 @@ class CryptoHomeFragment : Fragment() {
     private var _binding: FragmentCryptoHomeBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel: CryptoHomeViewModel
-    lateinit var resView: RecyclerView
-    lateinit var cryproAdapter: CryptoHomeAdapter
+    private lateinit var viewModel: CryptoHomeViewModel
+    private lateinit var resView: RecyclerView
+    private lateinit var cryproAdapter: CryptoHomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

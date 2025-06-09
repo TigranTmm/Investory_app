@@ -22,9 +22,9 @@ class CryptoFragment : Fragment() {
     private var _binding: FragmentCryptoBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel: CryptoViewModel
-    lateinit var pieChart: PieChart
-    lateinit var resView: RecyclerView
+    private lateinit var viewModel: CryptoViewModel
+    private lateinit var pieChart: PieChart
+    private lateinit var resView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
