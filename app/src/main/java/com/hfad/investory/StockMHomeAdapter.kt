@@ -1,45 +1,45 @@
 package com.hfad.investory
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.hfad.investory.API.CryptoCoin
+import com.hfad.investory.API.StockCoins
+
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
 
-class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHomeHolder>(DiffCallBack()) {
+class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHolder>(DiffCallBack()) {
 
-    inner class CryptoHomeHolder(val binding: HomeAssetsBlankBinding)
+    inner class StockMHomeHolder(val binding: HomeAssetsBlankBinding)
         : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoHomeHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockMHomeHolder {
         val binding = HomeAssetsBlankBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CryptoHomeHolder(binding)
+        return StockMHomeHolder(binding)
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: CryptoHomeHolder, position: Int) {
-        val coin = getItem(position)
+    override fun onBindViewHolder(holder: StockMHomeHolder, position: Int) {
+        val active = getItem(position)
 
-        val roundPriceChange = "%.2f".format(coin.priceChange)
-        val roundPrice = "%.2f".format(coin.currentPrice)
+        val rawChange = active.changesPercentage.replace(",", ".")
+        val changeValue = rawChange.toDouble()
 
+        val roundPriceChange = "%.2f".format(changeValue)
+        val roundPrice = "%.2f".format(active.price)
 
         // Price change colors + text
-        if (coin.priceChange > 0) {
+
+        if (changeValue > 0) {
             holder.binding.apply {
                 change.setTextColor(ContextCompat.getColor(root.context, R.color.up))
                 change.setBackgroundResource(R.drawable.up_bg)
                 change.text = "+$roundPriceChange%"
             }
-        } else if (coin.priceChange < 0) {
+        } else if (changeValue < 0) {
             holder.binding.apply {
                 change.setTextColor(ContextCompat.getColor(root.context, R.color.down))
                 change.setBackgroundResource(R.drawable.down_bg)
@@ -49,25 +49,23 @@ class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHome
 
         // Data setting
         holder.binding.apply {
-            title.text = coin.symbol.uppercase()
+            title.text = active.symbol.uppercase()
             price.text = "$roundPrice $"
         }
 
         // Image setting (loaded, notAvailable, notLoaded)
         Glide.with(holder.binding.root.context)
-            .load(coin.image)
-            .placeholder(R.drawable.not_available)
-            .error(R.drawable.loading_error)
+            .load(R.drawable.not_available)
             .into(holder.binding.icon)
     }
 
 
-    private class DiffCallBack : DiffUtil.ItemCallback<CryptoCoin>() {
-        override fun areItemsTheSame(oldItem: CryptoCoin, newItem: CryptoCoin): Boolean {
+    private class DiffCallBack : DiffUtil.ItemCallback<StockCoins>() {
+        override fun areItemsTheSame(oldItem: StockCoins, newItem: StockCoins): Boolean {
             return oldItem.symbol == newItem.symbol
         }
 
-        override fun areContentsTheSame(oldItem: CryptoCoin, newItem: CryptoCoin): Boolean {
+        override fun areContentsTheSame(oldItem:StockCoins, newItem: StockCoins): Boolean {
             return oldItem == newItem
         }
 
