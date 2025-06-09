@@ -23,8 +23,8 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:paddingTop="16dp"
         style="@style/Tabs"
+        android:paddingTop="8dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem
@@ -38,10 +38,6 @@
             android:text="@string/stock" />
 
     </com.google.android.material.tabs.TabLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="2dp" />
 
     <FrameLayout
         android:layout_width="match_parent"

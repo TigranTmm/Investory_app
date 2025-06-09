@@ -33,7 +33,6 @@
         android:id="@+id/change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/text_bg"
         android:fontFamily="@font/roboto_medium"
         android:paddingStart="12dp"
         android:paddingTop="4dp"

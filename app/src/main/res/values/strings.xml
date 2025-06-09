@@ -16,4 +16,6 @@
     <string name="change24h">Change, 24 h:</string>
     <string name="price">Price:</string>
 
+    <string name="list_title">Actives List</string>
+
 </resources>

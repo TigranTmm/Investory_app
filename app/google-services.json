@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "990060156984",
+    "project_id": "investory-4404c",
+    "storage_bucket": "investory-4404c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990060156984:android:1fe7c8647eaffd83876ecd",
+        "android_client_info": {
+          "package_name": "com.hfad.investory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmZm6x6_v2Fjsvks7uYoBjMGauU_L7qQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

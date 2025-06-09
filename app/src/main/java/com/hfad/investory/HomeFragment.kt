@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         viewPager2 = binding.viewPager2
         adapter = PageAdapter(childFragmentManager, lifecycle)
 
-        /** Pie chart **/
+        /** Pie Chart **/
         val pieColors = listOf(
             ContextCompat.getColor(requireContext(), R.color.one),
             ContextCompat.getColor(requireContext(), R.color.two)
@@ -110,6 +110,7 @@ class HomeFragment : Fragment() {
         /** View pager 2 **/
         viewPager2.adapter = adapter
 
+        // Tab listener
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
@@ -120,9 +121,9 @@ class HomeFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
-
         })
 
+        // Slide listener
         viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

@@ -11,6 +11,7 @@
     <color name="label_color">#787099</color>
     <color name="text_bg">#1B2143</color>
 
+    <color name="primary_blue">#4419DF</color>
 
     <color name="up">#00A849</color>
     <color name="up_bg">#022934</color>
@@ -21,5 +22,9 @@
     <color name="legend_text">#828194</color>
     <color name="one">#A320C4</color>
     <color name="two">#771EE9</color>
+    <color name="thee">#198EE2</color>
+    <color name="four">#00B081</color>
+    <color name="five">#D17105</color>
+
 
 </resources>

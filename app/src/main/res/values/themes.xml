@@ -33,6 +33,6 @@
         <item name="tabIndicatorAnimationMode">elastic</item>
         <item name="tabSelectedTextColor">@color/b_n_item</item>
         <item name="tabTextColor">@color/legend_text</item>
-        <item name="tabIndicatorColor">@color/b_n_item</item>
+        <item name="tabIndicatorColor">@color/primary_blue</item>
     </style>
 </resources>
