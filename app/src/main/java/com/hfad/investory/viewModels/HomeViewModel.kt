@@ -22,6 +22,6 @@ class HomeViewModel: ViewModel() {
         )
 
         val total = cryptoSum + stockSum
-        _centerText.value = "%.2f".format(total)
+        _centerText.value = "${"%.2f".format(total)} $"
     }
 }

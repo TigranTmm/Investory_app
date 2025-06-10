@@ -34,5 +34,6 @@
     <string name="add">Add</string>
     <string name="delete">Are you shure that you\nwant to delete\nthis asset?</string>
     <string name="approve">Approve</string>
+    <string name="logOut">Log Out</string>
 
 </resources>

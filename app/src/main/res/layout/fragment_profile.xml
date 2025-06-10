@@ -16,6 +16,27 @@
 
     <ImageView
         android:layout_width="300dp"
-        android:layout_height="300dp"/>
+        android:layout_height="300dp"
+        android:src="@drawable/avatar"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/b_n_item"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/log_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/logOut"
+        android:layout_marginHorizontal="128dp"
+        android:text="@string/logOut"
+        android:textColor="@color/b_n_item" />
 
 </LinearLayout>
