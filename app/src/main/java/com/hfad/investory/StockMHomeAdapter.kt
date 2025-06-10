@@ -33,7 +33,7 @@ class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHol
 
         // Price change colors + text
 
-        if (changeValue > 0) {
+        if (changeValue >= 0) {
             holder.binding.apply {
                 change.setTextColor(ContextCompat.getColor(root.context, R.color.up))
                 change.setBackgroundResource(R.drawable.up_bg)
@@ -53,7 +53,7 @@ class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHol
             price.text = "$roundPrice $"
         }
 
-        // Image setting (loaded, notAvailable, notLoaded)
+        // Image setting
         Glide.with(holder.binding.root.context)
             .load(R.drawable.not_available)
             .into(holder.binding.icon)

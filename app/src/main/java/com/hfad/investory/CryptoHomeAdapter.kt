@@ -33,7 +33,7 @@ class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHome
 
 
         // Price change colors + text
-        if (coin.priceChange > 0) {
+        if (coin.priceChange >= 0) {
             holder.binding.apply {
                 change.setTextColor(ContextCompat.getColor(root.context, R.color.up))
                 change.setBackgroundResource(R.drawable.up_bg)

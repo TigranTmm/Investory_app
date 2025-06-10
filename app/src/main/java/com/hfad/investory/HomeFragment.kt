@@ -15,6 +15,7 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.hfad.investory.databinding.FragmentHomeBinding
@@ -130,6 +131,10 @@ class HomeFragment : Fragment() {
                 tabLayout.selectTab(tabLayout.getTabAt(position))
             }
         })
+
+        // BottomNav visibility
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.visibility = View.VISIBLE
 
         return view
     }

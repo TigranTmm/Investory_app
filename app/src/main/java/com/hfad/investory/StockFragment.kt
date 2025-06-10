@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class StockFragment : Fragment() {
@@ -14,5 +15,9 @@ class StockFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_stock, container, false)
+
+        // BottomNav visibility
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.visibility = View.VISIBLE
     }
 }

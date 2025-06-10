@@ -6,16 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hfad.investory.database.MyCrypto
 import com.hfad.investory.database.MyCryptoDao
+import com.hfad.investory.database.MyStock
+import com.hfad.investory.database.MyStockDao
 import kotlinx.coroutines.launch
 
-class CryptoViewModel(private val dao: MyCryptoDao): ViewModel() {
-    private val _cryptoList = MutableLiveData<List<MyCrypto>>()
-    val cryptoList: LiveData<List<MyCrypto>> = _cryptoList
+class StockViewModel(private val dao: MyStockDao): ViewModel() {
+    private val _stockList = MutableLiveData<List<MyStock>>()
+    val stockList: LiveData<List<MyStock>> = _stockList
 
-    fun loadUserCryptos(userId: String) {
+    fun loadUserStocks(userId: String) {
         viewModelScope.launch {
             val result = dao.getAllByUser(userId)
-            _cryptoList.postValue(result)
+            _stockList.postValue(result)
         }
     }
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hfad.investory.R
 import com.hfad.investory.databinding.FragmentAuthBinding
 import com.hfad.investory.databinding.FragmentCryptoBinding
@@ -49,7 +50,6 @@ class AuthFragment : Fragment() {
         singInButton = binding.btnLogin
         progressBar = binding.progressBar
 
-
         lifecycleScope.launch {
             viewModel.authState.collect { state ->
                 when (state) {
@@ -79,6 +79,10 @@ class AuthFragment : Fragment() {
             val password = passwordInput.text.toString().trim()
             viewModel.login(email, password)
         }
+
+        // BottomNav visibility
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.visibility = View.GONE
 
         return view
     }

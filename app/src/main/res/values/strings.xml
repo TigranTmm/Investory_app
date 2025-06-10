@@ -15,6 +15,7 @@
     <!-- Under constrain -->
     <string name="change24h">Change, 24 h:</string>
     <string name="price">Price:</string>
+    <string name="sum">Amount</string>
 
     <string name="list_title">Actives List</string>
 
@@ -25,5 +26,13 @@
     <string name="login">Log In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+
+    <!-- Crypto -->
+    <string name="c_title">Enter a coin symbol\nand amount</string>
+    <string name="symbol">Enter coin symbol</string>
+    <string name="amount">Enter coin amount</string>
+    <string name="add">Add</string>
+    <string name="delete">Are you shure that you\nwant to delete\nthis coin </string>
+    <string name="approve">Approve</string>
 
 </resources>

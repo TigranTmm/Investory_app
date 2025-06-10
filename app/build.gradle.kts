@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    alias(libs.plugins.navigation.safe.args)
 }
 
 val localProperties = Properties().apply {
