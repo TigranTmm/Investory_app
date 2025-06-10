@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.github.mikephil.charting.charts.PieChart
@@ -18,8 +19,15 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.firebase.auth.FirebaseAuth
+import com.hfad.investory.database.AppDatabase
+import com.hfad.investory.database.MyCryptoDao
+import com.hfad.investory.database.MyStockDao
 import com.hfad.investory.databinding.FragmentHomeBinding
 import com.hfad.investory.viewModels.HomeViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeFragment : Fragment() {
@@ -32,6 +40,9 @@ class HomeFragment : Fragment() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var adapter: PageAdapter
 
+    private lateinit var cryptoDao: MyCryptoDao
+    private lateinit var stockDao: MyStockDao
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,8 +54,23 @@ class HomeFragment : Fragment() {
 
         // View model
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        viewModel.setData()
-        viewModel.setCenterText()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        val db = AppDatabase.getInstance(requireContext())
+        cryptoDao = db.myCryptoDao()
+        stockDao = db.myStockDao()
+
+        lifecycleScope.launch {
+            val cryptos = cryptoDao.getAllByUser(userId)
+            val stocks = stockDao.getAllByUser(userId)
+
+            val cryptoSum = cryptos.sumOf { it.totalValue }
+            val stockSum = stocks.sumOf { it.totalValue }
+
+            withContext(Dispatchers.Main) {
+                viewModel.updatePortfolio(cryptoSum, stockSum)
+            }
+        }
 
         // Lateinit initialization
         pieChart = binding.homePieChart

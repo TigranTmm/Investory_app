@@ -7,31 +7,31 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.hfad.investory.database.MyCrypto
+import com.hfad.investory.database.MyStock
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
 
-class CryptoAdapter(
-    private val onItemLongClick: (MyCrypto) -> Unit
-) : ListAdapter<MyCrypto, CryptoAdapter.CryptoViewHolder>(DiffCallback()) {
+class StockAdapter(
+    private val onItemLongClick: (MyStock) -> Unit
+) : ListAdapter<MyStock, StockAdapter.StockViewHolder>(DiffCallback()) {
 
-    inner class CryptoViewHolder(val binding: HomeAssetsBlankBinding)
+    inner class StockViewHolder(val binding: HomeAssetsBlankBinding)
         : RecyclerView.ViewHolder(binding.root) {
-            fun bind(item: MyCrypto) {
-                binding.title.text = item.symbol
-                binding.root.setOnLongClickListener {
-                    onItemLongClick(item)
-                    true
-                }
+        fun bind(item: MyStock) {
+            binding.title.text = item.symbol
+            binding.root.setOnLongClickListener {
+                onItemLongClick(item)
+                true
             }
         }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
-        val binding = HomeAssetsBlankBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CryptoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockViewHolder {
+        val binding = HomeAssetsBlankBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return StockViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: StockViewHolder, position: Int) {
         holder.bind(getItem(position))
 
         val item = getItem(position)
@@ -47,18 +47,18 @@ class CryptoAdapter(
 
             // Image setting
             Glide.with(holder.binding.root.context)
-                .load(item.iconUrl)
+                .load(R.drawable.not_available)
                 .into(holder.binding.icon)
         }
     }
 
 
-    class DiffCallback : DiffUtil.ItemCallback<MyCrypto>() {
-        override fun areItemsTheSame(oldItem: MyCrypto, newItem: MyCrypto): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<MyStock>() {
+        override fun areItemsTheSame(oldItem: MyStock, newItem: MyStock): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MyCrypto, newItem: MyCrypto): Boolean {
+        override fun areContentsTheSame(oldItem: MyStock, newItem: MyStock): Boolean {
             return oldItem == newItem
         }
     }

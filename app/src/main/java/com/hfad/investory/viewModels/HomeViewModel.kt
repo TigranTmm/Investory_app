@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.data.PieEntry
 
 class HomeViewModel: ViewModel() {
-    // Chart data
+    // Pie data
     private val _chartData = MutableLiveData<List<PieEntry>>()
     val chartData: LiveData<List<PieEntry>> = _chartData
 
@@ -14,16 +14,14 @@ class HomeViewModel: ViewModel() {
     private val _centerText = MutableLiveData<String>()
     val centerText: LiveData<String> = _centerText
 
-    // Setting pie data
-    fun setData() {
+    // Update data
+    fun updatePortfolio(cryptoSum: Double, stockSum: Double) {
         _chartData.value = listOf(
-            PieEntry(2362f, "Crypto"),
-            PieEntry(7824f, "Stock Market")
+            PieEntry(cryptoSum.toFloat(), "Crypto"),
+            PieEntry(stockSum.toFloat(), "Stock Market")
         )
-    }
 
-    // Setting center text
-    fun setCenterText() {
-        _centerText.value = "10,125 $"
+        val total = cryptoSum + stockSum
+        _centerText.value = "%.2f".format(total)
     }
 }
