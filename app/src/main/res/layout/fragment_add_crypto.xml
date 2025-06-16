@@ -10,12 +10,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:fontFamily="@font/montserrat_bold"
-        android:layout_gravity="center|top"
-        android:gravity="center"
-        android:layout_margin="32dp"
-        android:text="@string/add" />
+        android:layout_gravity="center"
+        android:text="@string/add_page"
+        style="@style/Labels"/>
 
     <EditText
         android:id="@+id/symbolInput"
@@ -31,14 +28,32 @@
         android:layout_margin="16dp"
         android:hint="@string/amount" />
 
-    <Button
-        android:id="@+id/saveButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary_blue"
-        android:text="@string/add"
-        android:textColor="@color/b_n_item"
-        android:layout_margin="16dp" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_blue"
+            android:text="@string/exit"
+            android:textColor="@color/b_n_item"
+            android:layout_margin="16dp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_blue"
+            android:text="@string/add"
+            android:textColor="@color/b_n_item"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"

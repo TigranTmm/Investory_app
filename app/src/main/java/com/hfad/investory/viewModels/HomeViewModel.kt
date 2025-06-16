@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.data.PieEntry
+import java.text.NumberFormat
+import java.util.Locale
 
 class HomeViewModel: ViewModel() {
     // Pie data
@@ -22,6 +24,7 @@ class HomeViewModel: ViewModel() {
         )
 
         val total = cryptoSum + stockSum
-        _centerText.value = "${"%.2f".format(total)} $"
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        _centerText.value = formatter.format(total)
     }
 }

@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.hfad.investory.API.StockCoins
 
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHolder>(DiffCallBack()) {
 
@@ -25,11 +27,12 @@ class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHol
     override fun onBindViewHolder(holder: StockMHomeHolder, position: Int) {
         val active = getItem(position)
 
-        val rawChange = active.changesPercentage.replace(",", ".")
+        val rawChange = active.changesPercentage?.replace(",", ".") ?: "0.0"
         val changeValue = rawChange.toDouble()
-
         val roundPriceChange = "%.2f".format(changeValue)
-        val roundPrice = "%.2f".format(active.price)
+
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        val roundPrice = formatter.format(active.price)
 
         // Price change colors + text
 
@@ -50,12 +53,12 @@ class StockMHomeAdapter: ListAdapter<StockCoins, StockMHomeAdapter.StockMHomeHol
         // Data setting
         holder.binding.apply {
             title.text = active.symbol.uppercase()
-            price.text = "$roundPrice $"
+            price.text = roundPrice
         }
 
         // Image setting
         Glide.with(holder.binding.root.context)
-            .load(R.drawable.not_available)
+            .load(R.drawable.active)
             .into(holder.binding.icon)
     }
 

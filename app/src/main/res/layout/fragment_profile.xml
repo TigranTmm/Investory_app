@@ -34,7 +34,7 @@
         android:id="@+id/log_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/logOut"
+        android:backgroundTint="@color/red_button"
         android:layout_marginHorizontal="128dp"
         android:text="@string/logOut"
         android:textColor="@color/b_n_item" />

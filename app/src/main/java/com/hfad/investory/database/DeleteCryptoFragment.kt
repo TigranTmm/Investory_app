@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hfad.investory.R
 import com.hfad.investory.databinding.FragmentCryptoBinding
 import com.hfad.investory.databinding.FragmentDeleteCryptoBinding
@@ -40,6 +41,10 @@ class DeleteCryptoFragment : Fragment() {
                 }
             }
         }
+
+        // BottomNav visibility
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.visibility = View.GONE
 
         return view
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -109,7 +110,7 @@ class HomeFragment : Fragment() {
             holeRadius = 85f
             setHoleColor(Color.TRANSPARENT)
             setCenterTextSize(32f)
-            setCenterTextTypeface(Typeface.DEFAULT_BOLD)
+            setCenterTextTypeface(ResourcesCompat.getFont(context, R.font.montserrat_bold))
             animateY(1500)
         }
 

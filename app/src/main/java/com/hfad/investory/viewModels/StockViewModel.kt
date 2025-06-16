@@ -20,4 +20,11 @@ class StockViewModel(private val dao: MyStockDao): ViewModel() {
             _stockList.postValue(result)
         }
     }
+
+    fun deleteActive(crypto: MyStock) {
+        viewModelScope.launch {
+            dao.delete(crypto)
+            crypto.userId?.let { loadUserStocks(it) }
+        }
+    }
 }

@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hfad.investory.database.MyCrypto
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class CryptoAdapter(
     private val onItemLongClick: (MyCrypto) -> Unit
@@ -36,10 +38,11 @@ class CryptoAdapter(
 
         val item = getItem(position)
 
-        val readyPrice = "${"%.2f".format(item.totalValue)} $"
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        val readyPrice = formatter.format(item.totalValue)
 
         holder.binding.apply {
-            title.text = item.symbol
+            title.text = item.symbol.uppercase()
             change.text = item.amount.toString()
             change.setTextColor(ContextCompat.getColor(root.context, R.color.legend_text))
             change.setBackgroundResource(R.drawable.text_bg)

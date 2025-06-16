@@ -86,4 +86,13 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
+
+    // JUnit 4
+    testImplementation("junit:junit:4.13.2")
+
+    // Если используешь LiveData или ViewModel
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // Mockito (опционально)
+    testImplementation("org.mockito:mockito-core:5.11.0")
 }

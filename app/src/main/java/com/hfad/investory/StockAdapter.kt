@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hfad.investory.database.MyStock
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class StockAdapter(
     private val onItemLongClick: (MyStock) -> Unit
@@ -36,7 +38,8 @@ class StockAdapter(
 
         val item = getItem(position)
 
-        val readyPrice = "${"%.2f".format(item.totalValue)} $"
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        val readyPrice = formatter.format(item.totalValue)
 
         holder.binding.apply {
             title.text = item.symbol
@@ -47,7 +50,7 @@ class StockAdapter(
 
             // Image setting
             Glide.with(holder.binding.root.context)
-                .load(R.drawable.not_available)
+                .load(R.drawable.active)
                 .into(holder.binding.icon)
         }
     }

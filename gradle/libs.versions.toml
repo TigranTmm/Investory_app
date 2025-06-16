@@ -53,3 +53,4 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigation" }
+

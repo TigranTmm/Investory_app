@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,10 +33,19 @@ class AddStockFragment : Fragment() {
             .inflate(inflater, container, false)
         val view = binding.root
 
+        // View model
+        val apiKey = BuildConfig.API_KEY
+        stockHomeViewModel.getCoins(apiKey)
+
         // Dao
         val dao = AppDatabase.getInstance(requireContext()).myStockDao()
         val factory = MyStockFactory(dao)
         myStockViewModel = ViewModelProvider(this, factory)[MyStockViewModel::class.java]
+
+        // Exit
+        binding.exitButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         // Saving coin
         binding.saveButton.setOnClickListener{
@@ -55,14 +63,29 @@ class AddStockFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            // Coin searching
+            val actives = stockHomeViewModel.actives.value
+
+            if (actives.isNullOrEmpty()) {
+                Toast.makeText(context, "Loaded ERROR", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val active = actives.find { it.symbol.equals(symbolInput, ignoreCase = true) }
+
+            if (active == null) {
+                Toast.makeText(context, "Asset not founded", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
 
             val myStock = MyStock(
                 iconUrl = "",
-                symbol = symbolInput,
+                symbol = active.symbol,
                 amount = amount,
-                pricePerCoin = 100.0,
-                totalValue = amount * 100.0,
+                pricePerCoin = active.price,
+                totalValue = amount * active.price,
                 userId = userId
             )
 

@@ -2,11 +2,13 @@ package com.hfad.investory
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,25 +20,30 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.hfad.investory.database.AppDatabase
-import com.hfad.investory.databinding.FragmentCryptoBinding
+import com.hfad.investory.database.MyCrypto
+import com.hfad.investory.database.MyStock
 import com.hfad.investory.databinding.FragmentStockBinding
-import com.hfad.investory.viewModels.CryptoViewModel
-import com.hfad.investory.viewModels.CryptoViewModelFactory
 import com.hfad.investory.viewModels.StockViewModel
 import com.hfad.investory.viewModels.StockViewModelFactory
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class StockFragment : Fragment() {
     private var _binding: FragmentStockBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: CryptoViewModel
+    private lateinit var viewModel: StockViewModel
     private lateinit var pieChart: PieChart
     private lateinit var resView: RecyclerView
     private lateinit var fab: FloatingActionButton
+    private lateinit var checkBox: MaterialCheckBox
+
+    private var currentList = emptyList<MyStock>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,29 +57,85 @@ class StockFragment : Fragment() {
         // View model
         val dao = AppDatabase.getInstance(requireContext()).myStockDao()
         val factory = StockViewModelFactory(dao)
-        val viewModel = ViewModelProvider(this, factory)[StockViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[StockViewModel::class.java]
 
         // Lateinit initialization
-        pieChart = binding.cryptoPieChart
-        resView = binding.recCrypto
+        pieChart = binding.stockPieChart
+        resView = binding.recStock
         fab = binding.fab
+        checkBox = binding.sortButton
 
-        // Adapter setting + userId
+        /** RecView **/
         resView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = StockAdapter { active ->
-            val action = StockFragmentDirections
-                .actionStockFragmentToDeleteStockFragment(active.id.toString())
-            findNavController().navigate(action)
+        val adapter = StockAdapter { coin ->
+            deleteDialog(coin)
         }
         resView.adapter = adapter
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         /** FAB **/
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_stockFragment_to_addStockFragment)
         }
 
+        /** CheckBox **/
+        checkBox.setOnCheckedChangeListener { _, _ ->
+            sortAdapterList(currentList)
+        }
+
         /** Pie Chart **/
+        pieChartSettings()
+
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        viewModel.loadUserStocks(userId)
+
+        viewModel.stockList.observe(viewLifecycleOwner) { list ->
+            currentList = list
+            sortAdapterList(currentList)
+            updateData(currentList)
+        }
+
+        // BottomNav visibility
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.visibility = View.VISIBLE
+
+        return view
+    }
+
+
+    /** List sorting **/
+    private fun sortAdapterList(list: List<MyStock>) {
+        val isChecked = checkBox.isChecked
+        val sorted = if (isChecked)
+            list.sortedBy { it.totalValue }
+        else list.sortedByDescending { it.totalValue }
+
+        (binding.recStock.adapter as StockAdapter).submitList(sorted)
+    }
+
+
+    /** Data setting **/
+    private fun updateData(list: List<MyStock>) {
+        // PieChart data preparing
+        val sortedList = list.sortedByDescending { it.totalValue }
+        val top4 = sortedList.take(4)
+        val others = sortedList.drop(4)
+
+        val topEntries = top4.map {
+            PieEntry(it.totalValue.toFloat(), it.symbol.uppercase())
+        }
+        val othersTotal = others.sumOf { it.totalValue }
+
+        val finalEntries = if (othersTotal > 0) {
+            topEntries + PieEntry(othersTotal.toFloat(), "Others")
+        } else {
+            topEntries
+        }
+
+        // PieChart data setting
+        val dataSet = PieDataSet(finalEntries, "")
+        dataSet.sliceSpace = 7f
+        dataSet.selectionShift = 5f
+
         val pieColors = listOf(
             ContextCompat.getColor(requireContext(), R.color.one),
             ContextCompat.getColor(requireContext(), R.color.two),
@@ -80,7 +143,23 @@ class StockFragment : Fragment() {
             ContextCompat.getColor(requireContext(), R.color.four),
             ContextCompat.getColor(requireContext(), R.color.five)
         )
+        dataSet.colors = pieColors
 
+        val data = PieData(dataSet)
+        data.setDrawValues(false)
+
+        pieChart.data = data
+
+        pieChart.invalidate()
+
+        // Sum
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        binding.total.text = formatter.format(list.sumOf { it.totalValue })
+    }
+
+
+    /** PieChart view settings **/
+    private fun pieChartSettings() {
         // Legend settings
         val legend = pieChart.legend
         legend.apply {
@@ -108,50 +187,35 @@ class StockFragment : Fragment() {
             setExtraOffsets(0f, 0f, 0f, 0f)
             extraLeftOffset = -60f
         }
+    }
 
-        // Data setting
-        viewModel.loadUserStocks(userId)
-        viewModel.stockList.observe(viewLifecycleOwner) { list ->
-            Log.d("StockFragment", "stockList size = ${list.size}")
-            adapter.submitList(list)
 
-            // PieChart data preparing
-            val sortedList = list.sortedByDescending { it.totalValue }
-            val top4 = sortedList.take(4)
-            val others = sortedList.drop(4)
+    /** Delete asset **/
+    private fun deleteDialog(item: MyStock) {
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.delete_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
 
-            val topEntries = top4.map {
-                PieEntry(it.totalValue.toFloat(), it.symbol.uppercase())
-            }
-            val othersTotal = others.sumOf { it.totalValue }
-
-            val finalEntries = if (othersTotal > 0) {
-                topEntries + PieEntry(othersTotal.toFloat(), "Others")
-            } else {
-                topEntries
-            }
-
-            // PieChart data setting
-            val dataSet = PieDataSet(finalEntries, "")
-            dataSet.sliceSpace = 7f
-            dataSet.selectionShift = 5f
-            dataSet.colors = pieColors
-
-            val data = PieData(dataSet)
-            data.setDrawValues(false)
-
-            pieChart.data = data
-
-            pieChart.invalidate()
-
-            // Sum
-            binding.total.text = "${"%.2f".format(list.sumOf { it.totalValue })} $"
+        dialogView.findViewById<Button>(R.id.cancel_button).setOnClickListener {
+            dialog.dismiss()
         }
 
-        // BottomNav visibility
-        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNav.visibility = View.VISIBLE
+        dialogView.findViewById<Button>(R.id.delete_button).setOnClickListener {
+            viewModel.deleteActive(item)
+            dialog.dismiss()
+            Toast.makeText(context, "${item.symbol} was deleted", Toast.LENGTH_SHORT).show()
+        }
 
-        return view
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialog.show()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

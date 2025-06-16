@@ -5,14 +5,17 @@
     <color name="background">#020023</color>
     <color name="background_1">#0F0032</color>
     <color name="background_2">#020023</color>
-    <color name="background_3">#020B33</color>
+    <color name="background_3">#001942</color>
     <color name="bottom_nav">#1C1A3A</color>
     <color name="b_n_item">#EAF1FF</color>
     <color name="label_color">#787099</color>
     <color name="text_bg">#1B2143</color>
 
     <color name="primary_blue">#4419DF</color>
+    <color name="dialog">#242246</color>
+    <color name="red_button">#A31313</color>
 
+    <!-- Price changing colors -->
     <color name="up">#00A849</color>
     <color name="up_bg">#022934</color>
     <color name="down">#F12E31</color>
@@ -25,7 +28,5 @@
     <color name="thee">#198EE2</color>
     <color name="four">#00B081</color>
     <color name="five">#D17105</color>
-
-    <color name="logOut">#920A0C</color>
 
 </resources>

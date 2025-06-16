@@ -12,7 +12,7 @@ class AuthViewModel: ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun register(email: String, password: String) {
-        if (email.isBlank() || password.length < 6) {
+        if (email.isBlank() || password.length < 6){
             _authState.value = AuthState.Error("Enter minimum 6 symbols")
             return
         }
@@ -29,6 +29,11 @@ class AuthViewModel: ViewModel() {
     }
 
     fun login(email: String, password: String) {
+        if (email.isBlank() || password.length < 6){
+            _authState.value = AuthState.Error("Enter minimum 6 symbols")
+            return
+        }
+
         _authState.value = AuthState.Loading
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

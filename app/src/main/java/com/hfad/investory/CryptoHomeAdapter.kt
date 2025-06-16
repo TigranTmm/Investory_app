@@ -2,6 +2,7 @@ package com.hfad.investory
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.icu.number.NumberFormatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hfad.investory.API.CryptoCoin
 import com.hfad.investory.databinding.HomeAssetsBlankBinding
+import java.text.NumberFormat
+import java.util.Locale
 
 class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHomeHolder>(DiffCallBack()) {
 
@@ -28,8 +31,10 @@ class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHome
     override fun onBindViewHolder(holder: CryptoHomeHolder, position: Int) {
         val coin = getItem(position)
 
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+        val roundPrice = formatter.format(coin.currentPrice)
+
         val roundPriceChange = "%.2f".format(coin.priceChange)
-        val roundPrice = "%.2f".format(coin.currentPrice)
 
 
         // Price change colors + text
@@ -50,7 +55,7 @@ class CryptoHomeAdapter() : ListAdapter<CryptoCoin, CryptoHomeAdapter.CryptoHome
         // Data setting
         holder.binding.apply {
             title.text = coin.symbol.uppercase()
-            price.text = "$roundPrice $"
+            price.text = roundPrice
         }
 
         // Image setting (loaded, notAvailable, notLoaded)

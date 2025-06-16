@@ -7,6 +7,7 @@
     <string name="crypto_page">CRYPTO</string>
     <string name="stock_page">STOCK MARKET</string>
     <string name="profile_page">PROFILE</string>
+    <string name="add_page">ADD</string>
 
     <!-- Tabs -->
     <string name="crypto">Crypto</string>
@@ -19,10 +20,16 @@
 
     <string name="list_title">Actives List</string>
 
+    <!-- Delete dialog -->
+    <string name="delete_dialog">Asset deletion</string>
+    <string name="description">Are you shure that you want to delete this asset?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
     <!-- Auth -->
     <string name="welcome">Welcome to the
         Investory</string>
-    <string name="register">Register</string>
+    <string name="register">Sign Up</string>
     <string name="login">Log In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -32,7 +39,7 @@
     <string name="symbol">Enter asset symbol</string>
     <string name="amount">Enter asset amount</string>
     <string name="add">Add</string>
-    <string name="delete">Are you shure that you\nwant to delete\nthis asset?</string>
+    <string name="exit">Cancel</string>
     <string name="approve">Approve</string>
     <string name="logOut">Log Out</string>
 

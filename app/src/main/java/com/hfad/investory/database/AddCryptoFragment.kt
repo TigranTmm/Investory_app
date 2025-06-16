@@ -45,6 +45,11 @@ class AddCryptoFragment : Fragment() {
         val factory = MyCryproFactory(dao)
         myCryptoViewModel = ViewModelProvider(this, factory)[MyCryptoViewModel::class.java]
 
+        // Exit
+        binding.exitButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         // Saving coin
         binding.saveButton.setOnClickListener{
             val symbolInput = binding.symbolInput.text.toString().trim().uppercase()
