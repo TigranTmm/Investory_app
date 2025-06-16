@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.hfad.investory.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -27,5 +29,13 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
+
+        // Auth review
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            navController.navigate(R.id.homeFragment)
+        } else {
+            navController.navigate(R.id.authFragment)
+        }
     }
 }
