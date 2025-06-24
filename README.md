@@ -2,7 +2,7 @@
 https://disk.yandex.ru/d/Qrk_ymL-u6HcMw
 
 ## Скриншоты приложения:
-<img src="![5350514049852500867 (1)](https://github.com/user-attachments/assets/e6387878-4de8-4f1a-878a-8258fd0a3431)" width="300" height="200">
+<img src="(https://github.com/user-attachments/assets/e6387878-4de8-4f1a-878a-8258fd0a3431)" width="300" height="200">
 ![5350514049852500866 (2)](https://github.com/user-attachments/assets/2d1a338d-75fb-47df-af60-bf4a95765d6e)
 ![5350514049852500865 (2)](https://github.com/user-attachments/assets/08cc96c2-dd2c-4b78-bb6f-08c69c6cefd1)
 ![5350514049852500864 (3)](https://github.com/user-attachments/assets/6fdb80ba-1a91-49ee-946f-68347439ffa0)
